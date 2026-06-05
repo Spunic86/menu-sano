@@ -25,11 +25,10 @@ html,body{height:100%;background:var(--cr);font-family:'DM Sans',sans-serif;colo
 /* HDR */
 .hdr{background:linear-gradient(160deg,var(--v) 0%,var(--v2) 60%,var(--v3) 100%);padding:env(safe-area-inset-top,0) 0 0;flex-shrink:0;position:relative;overflow:hidden;}
 .hdr::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 85% 40%,rgba(144,196,154,.18) 0%,transparent 65%);}
-.hdr-inner{position:relative;z-index:1;padding:13px 18px 11px;display:flex;justify-content:space-between;align-items:center;}
-.hdr-lbl{font-size:9px;letter-spacing:3.5px;color:var(--menta);text-transform:uppercase;margin-bottom:3px;}
-.hdr-title{font-family:'Playfair Display',serif;font-size:20px;color:#fff;font-weight:700;line-height:1.1;}
-.hdr-sub{font-size:11px;color:rgba(144,196,154,.85);margin-top:2px;}
-.hdr-emoji{font-size:38px;line-height:1;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3));}
+.hdr-inner{position:relative;z-index:1;padding:9px 18px 8px;display:flex;align-items:center;}
+.hdr-lbl{font-size:8px;letter-spacing:3px;color:var(--menta);text-transform:uppercase;margin-bottom:2px;}
+.hdr-title{font-family:'Playfair Display',serif;font-size:17px;color:#fff;font-weight:700;line-height:1.1;}
+.hdr-sub{font-size:10px;color:rgba(144,196,154,.85);margin-top:2px;}
 #install-btn{display:none;align-items:center;gap:6px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:20px;padding:5px 11px;font-size:10px;font-family:'DM Sans',sans-serif;cursor:pointer;margin:0 18px 9px;backdrop-filter:blur(4px);width:fit-content;}
 #install-btn.vis{display:flex;}
 
@@ -210,6 +209,51 @@ html,body{height:100%;background:var(--cr);font-family:'DM Sans',sans-serif;colo
 .usar-btn{display:block;width:100%;margin-top:9px;padding:9px;border-radius:var(--rsm);border:none;background:var(--v2);color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;}
 
 /* ──────────────────────────────────────────── */
+/* EDITOR DE RECETAS                             */
+/* ──────────────────────────────────────────── */
+.ed-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:150;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.ed-overlay.open{display:block;}
+.ed-sheet{background:var(--cr);min-height:100%;padding:0 0 40px;}
+.ed-hdr{position:sticky;top:0;z-index:10;background:var(--v2);padding:14px 16px;display:flex;align-items:center;gap:10px;}
+.ed-hdr-ttl{font-family:'Playfair Display',serif;font-size:17px;color:#fff;font-weight:600;flex:1;}
+.ed-close{background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:20px;padding:6px 12px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;}
+.ed-save{background:var(--am);border:none;color:var(--v);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;}
+.ed-body{padding:14px;}
+.ed-section{background:var(--bl);border-radius:var(--radio);box-shadow:var(--sh);margin-bottom:12px;overflow:hidden;}
+.ed-section-ttl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--su);padding:11px 14px 4px;}
+.ed-field{padding:6px 14px 10px;border-bottom:1px solid var(--cr2);}
+.ed-field:last-child{border-bottom:none;}
+.ed-label{font-size:10px;font-weight:600;color:var(--su);margin-bottom:4px;letter-spacing:.5px;}
+.ed-input{width:100%;padding:8px 10px;border-radius:8px;border:1.5px solid var(--cr3);background:var(--cr);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--tx);transition:border-color .2s;}
+.ed-input:focus{outline:none;border-color:var(--v3);}
+.ed-textarea{width:100%;padding:8px 10px;border-radius:8px;border:1.5px solid var(--cr3);background:var(--cr);font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--tx);resize:none;line-height:1.6;min-height:72px;}
+.ed-textarea:focus{outline:none;border-color:var(--v3);}
+.ed-select{width:100%;padding:8px 32px 8px 10px;border-radius:8px;border:1.5px solid var(--cr3);background:var(--cr);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--tx);appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6860' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;}
+.ed-select:focus{outline:none;border-color:var(--v3);}
+.ed-ico-row{display:flex;gap:6px;flex-wrap:wrap;padding:4px 0;}
+.ed-ico-btn{width:36px;height:36px;border-radius:8px;border:1.5px solid var(--cr3);background:var(--cr);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.ed-ico-btn.sel{border-color:var(--v3);background:var(--cr2);}
+/* Ingredientes editor */
+.ing-ed-row{display:flex;gap:6px;align-items:flex-start;padding:8px 14px;border-bottom:1px solid var(--cr2);animation:pgIn .18s ease both;}
+.ing-ed-row:last-child{border-bottom:none;}
+.ing-ed-num{font-size:10px;font-weight:700;color:var(--su);min-width:16px;padding-top:10px;}
+.ing-ed-fields{flex:1;display:flex;flex-direction:column;gap:4px;}
+.ing-ed-del{padding:6px;cursor:pointer;color:#ddd;font-size:16px;flex-shrink:0;margin-top:2px;transition:color .2s;}
+.ing-ed-del:hover{color:#E53E3E;}
+.add-ing-btn{display:flex;align-items:center;justify-content:center;gap:6px;margin:8px 14px;padding:9px;border-radius:var(--rsm);border:1.5px dashed var(--cr3);background:none;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--su);cursor:pointer;transition:all .2s;}
+.add-ing-btn:active{background:var(--cr2);}
+/* Botones editor en rec-card */
+.rec-edit-bar{display:flex;gap:6px;margin-top:8px;}
+.rec-edit-btn{flex:1;padding:8px;border-radius:var(--rsm);border:1.5px solid var(--cr3);background:var(--bl);font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:600;color:var(--su);cursor:pointer;text-align:center;}
+.rec-edit-btn.peligro{border-color:#FECACA;color:#E53E3E;background:#FFF5F5;}
+/* Nueva receta FAB */
+.fab-nueva{position:fixed;bottom:calc(70px + env(safe-area-inset-bottom,0));right:16px;width:52px;height:52px;border-radius:50%;background:var(--v2);border:none;color:#fff;font-size:24px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.25);z-index:50;display:none;align-items:center;justify-content:center;transition:transform .15s;}
+.fab-nueva.vis{display:flex;}
+.fab-nueva:active{transform:scale(.93);}
+/* Confirm delete */
+.ed-danger-btn{width:100%;padding:10px;border-radius:var(--rsm);border:none;background:#FFF5F5;color:#E53E3E;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;margin-top:4px;}
+
+/* ──────────────────────────────────────────── */
 /* HISTORIAL                                     */
 /* ──────────────────────────────────────────── */
 .hist-card{margin:10px 14px 0;border-radius:var(--radio);background:var(--bl);box-shadow:var(--sh);overflow:hidden;}
@@ -249,10 +293,9 @@ html,body{height:100%;background:var(--cr);font-family:'DM Sans',sans-serif;colo
     <div class="hdr-inner">
       <div>
         <div class="hdr-lbl">Planificación Familiar</div>
-        <div class="hdr-title">Menú Semanal<br>Saludable</div>
+        <div class="hdr-title">Menú Semanal</div>
         <div class="hdr-sub" id="hdr-sub">2 adultos · bebé 15 meses</div>
       </div>
-      <div class="hdr-emoji">🌿</div>
     </div>
     <button id="install-btn">⬇️ Instalar como app</button>
   </div>
@@ -268,7 +311,6 @@ html,body{height:100%;background:var(--cr);font-family:'DM Sans',sans-serif;colo
       <div id="nutri-area"></div>
       <div id="tiempo-area"></div>
       <div class="nota-box" id="nota-area"></div>
-      <div class="day-nav" id="day-nav"></div>
     </div>
 
     <!-- PLANIFICAR -->
@@ -317,6 +359,72 @@ html,body{height:100%;background:var(--cr);font-family:'DM Sans',sans-serif;colo
   </div>
 </div>
 
+<!-- EDITOR DE RECETA -->
+<div class="ed-overlay" id="ed-overlay">
+  <div class="ed-sheet">
+    <div class="ed-hdr">
+      <div class="ed-hdr-ttl" id="ed-ttl">Editar receta</div>
+      <button class="ed-close" onclick="closeEditor()">✕ Cancelar</button>
+      <button class="ed-save" onclick="guardarEditor()">✓ Guardar</button>
+    </div>
+    <div class="ed-body">
+      <!-- Info básica -->
+      <div class="ed-section">
+        <div class="ed-section-ttl">Información básica</div>
+        <div class="ed-field">
+          <div class="ed-label">Ícono</div>
+          <div class="ed-ico-row" id="ed-ico-row"></div>
+        </div>
+        <div class="ed-field">
+          <div class="ed-label">Nombre del plato</div>
+          <input class="ed-input" id="ed-nombre" placeholder="Ej: Pollo al limón con papas">
+        </div>
+        <div class="ed-field">
+          <div class="ed-label">Tipo</div>
+          <select class="ed-select" id="ed-tipo">
+            <option value="C|Carne">🥩 Carne</option>
+            <option value="P|Pescado">🐟 Pescado</option>
+            <option value="V|Vegano">🌿 Vegano</option>
+            <option value="L|Huevos">🥚 Huevos/Lácteos</option>
+            <option value="M|Mix">🍲 Mix</option>
+          </select>
+        </div>
+        <div class="ed-field">
+          <div class="ed-label">Tiempo de cocción</div>
+          <input class="ed-input" id="ed-tiempo" placeholder="Ej: 30 min">
+        </div>
+      </div>
+      <!-- Preparación -->
+      <div class="ed-section">
+        <div class="ed-section-ttl">Preparación</div>
+        <div class="ed-field">
+          <textarea class="ed-textarea" id="ed-prep" rows="3" placeholder="Paso a paso de la receta…"></textarea>
+        </div>
+        <div class="ed-field">
+          <div class="ed-label">👶 Tip bebé (15 meses)</div>
+          <textarea class="ed-textarea" id="ed-bebe" rows="2" placeholder="Adaptación para el bebé…"></textarea>
+        </div>
+      </div>
+      <!-- Ingredientes -->
+      <div class="ed-section">
+        <div class="ed-section-ttl">Ingredientes</div>
+        <div id="ed-ings-list"></div>
+        <button class="add-ing-btn" onclick="addIngRow()">＋ Agregar ingrediente</button>
+      </div>
+      <!-- Eliminar (solo en modo edición) -->
+      <div class="ed-section" id="ed-delete-section" style="display:none">
+        <div class="ed-section-ttl">Zona de peligro</div>
+        <div class="ed-field">
+          <button class="ed-danger-btn" onclick="eliminarReceta()">🗑 Eliminar esta receta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAB nueva receta -->
+<button class="fab-nueva" id="fab-nueva" onclick="abrirEditorNueva()">＋</button>
+
 <div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <h3 id="modal-ttl"></h3>
@@ -336,7 +444,7 @@ html,body{height:100%;background:var(--cr);font-family:'DM Sans',sans-serif;colo
 // ═══════════════════════════════════════════════════════
 
 const DIAS=["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
-const DIA_EMO={Lunes:"🥦",Martes:"🐟","Miércoles":"🌾",Jueves:"🥩",Viernes:"🐠",Sábado:"🍳",Domingo:"🍲"};
+const DIA_EMO={Lunes:"💪",Martes:"🔥","Miércoles":"⚡",Jueves:"🎯",Viernes:"🏁",Sábado:"😎",Domingo:"🧘"};
 const DIA_COL={
   Lunes:{acc:"#16A34A",bg:"#F0FDF4",li:"#DCFCE7"},
   Martes:{acc:"#2563EB",bg:"#EFF6FF",li:"#DBEAFE"},
@@ -495,6 +603,23 @@ const RECETAS=[
    prep:"Cocinar pescadilla o brótola a la plancha 4 min por lado. Servir con vegetales tibios salteados.",
    bebe:"Pescado blanco suave. Verificar espinas meticulosamente.",
    ings:[["Pescadilla o brótola","400g","70g sin espinas"],["Zucchini","1 med","¼ muy cocido"],["Tomate","2 und","½ cocido sin piel"],["Aceite de oliva","2 cdas","½ cdita"],["Limón","1 und","unas gotas"]]},
+  // ── RECETAS NUEVAS ──
+  {id:"r21",ico:"🫔",nombre:"Wrap integral de pollo y palta",tipo:"C",tn:"Carne",t:"20 min",n:{prot:2,veg:2,leg:0,pesc:0,cereal:1},
+   prep:"Saltear pechuga en tiras con pimiento y cebolla. Envolver en tortilla integral con palta y tomate.",
+   bebe:"El bebé come el relleno sin tortilla. Pechuga desmenuzada con vegetales muy cocidos y palta aplastada.",
+   ings:[["Pechuga de pollo","350g","70g desmenuzada"],["Tortillas integrales","4 und","No (masa)"],["Palta","1 und","¼ aplastada"],["Tomate","2 und","½ sin piel"],["Pimiento rojo","1 und","¼ muy cocido"]]},
+  {id:"r22",ico:"🥘",nombre:"Risotto de espinaca y ricota",tipo:"L",tn:"Huevos",t:"35 min",n:{prot:1,veg:2,leg:0,pesc:0,cereal:2},
+   prep:"Saltear cebolla en oliva. Agregar arroz arborio y caldo de a poco, revolviendo. Incorporar espinaca y ricota al final.",
+   bebe:"Arroz muy cocido y suave. La espinaca picada fina y la ricota lo hacen cremoso y nutritivo.",
+   ings:[["Arroz arborio","200g","70g muy cocido"],["Espinaca","200g","60g cocida picada"],["Ricota descremada","150g","2 cdas"],["Cebolla","1 und","¼ muy cocida"],["Caldo verduras","700ml","200ml sin sal"],["Aceite de oliva","2 cdas","½ cdita"]]},
+  {id:"c17",ico:"🍛",nombre:"Curry suave de pollo y vegetales",tipo:"C",tn:"Carne",t:"30 min",n:{prot:2,veg:2,leg:0,pesc:0,cereal:2},
+   prep:"Saltear pollo en cubos con cebolla. Agregar calabaza, zanahoria y leche de coco. Cocinar 15 min. Servir con arroz.",
+   bebe:"Separar porción antes de agregar curry. Sin especias fuertes. La leche de coco le da cremosidad.",
+   ings:[["Pechuga de pollo","350g","70g cubos pequeños"],["Calabaza","250g","80g"],["Zanahoria","2 und","1 puré"],["Leche de coco","200ml","3 cdas sin azúcar"],["Arroz blanco","200g","60g"],["Curry en polvo","1 cdita","Evitar"]]},
+  {id:"c18",ico:"🥙",nombre:"Pita integral con hummus y vegetales",tipo:"V",tn:"Vegano",t:"15 min",n:{prot:1,veg:2,leg:2,pesc:0,cereal:1},
+   prep:"Untar pita integral con hummus casero. Rellenar con morrón asado, lechuga, tomate y zanahoria rallada.",
+   bebe:"Sin pita. Servir hummus suave con vegetales cocidos para untar o como puré.",
+   ings:[["Pan pita integral","4 und","No (masa)"],["Garbanzos cocidos","300g","60g aplastados"],["Morrón rojo asado","2 und","¼ sin piel"],["Zanahoria","2 und","1 rallada cocida"],["Aceite de oliva","3 cdas","½ cdita"],["Limón","1 und","unas gotas"]]},
 ];
 
 const PLAN_DEF={
@@ -545,7 +670,8 @@ function setPage(p){
   document.getElementById('scroll').scrollTop=0;
   if(p==='plan')renderPlan();
   if(p==='compras')renderCompras();
-  if(p==='rec')renderRecetario();
+  if(p==='rec'){renderRecetario();document.getElementById('fab-nueva').classList.add('vis');}
+  else document.getElementById('fab-nueva').classList.remove('vis');
   if(p==='hist')renderHist();
 }
 
@@ -555,7 +681,7 @@ function setPage(p){
 
 function renderSemana(){
   renderHistBar();renderDias();renderMealRow();renderCard();
-  renderNutri();renderTiempo();renderNota();renderDayNav();
+  renderNutri();renderTiempo();renderNota();
   document.getElementById('hdr-sub').textContent=
     S.porciones===2?'2 adultos · bebé 15 meses':`${S.porciones} adultos · bebé 15 meses`;
 }
@@ -712,7 +838,7 @@ function renderDayNav(){
     <button class="dn-btn" ${i===DIAS.length-1?'disabled':''} onclick="setDia('${DIAS[i+1]||''}')"> ${i<DIAS.length-1?DIAS[i+1]:''} →</button>`;
 }
 
-function setDia(d){if(!d||!DIA_COL[d])return;S.dia=d;S.ingOpen=false;renderDias();renderMealRow();renderCard();renderTiempo();renderNota();renderDayNav();}
+function setDia(d){if(!d||!DIA_COL[d])return;S.dia=d;S.ingOpen=false;renderDias();renderMealRow();renderCard();renderTiempo();renderNota();}
 function setComida(c){S.comida=c;S.ingOpen=false;renderMealRow();renderCard();}
 function toggleIng(){S.ingOpen=!S.ingOpen;renderCard();}
 function saveNota(dia,txt){S.notas[dia]=txt;saveLS('notas',S.notas);}
@@ -950,12 +1076,215 @@ function renderRecetario(){
     </div>`).join(''):'<div style="padding:24px;text-align:center;color:var(--su);font-size:13px">No hay recetas en esta categoría.</div>';
 }
 
+function renderRecetario(){
+  document.getElementById('filtros').innerHTML=TIPOS.map(t=>`
+    <button class="filtro-btn${S.filtro===t?' active':''}" onclick="setFiltro('${t}')">${t}</button>`).join('');
+  let filtered=S.filtro==='Todos'?getAllRecetas():
+    S.filtro==='Favoritos'?getAllRecetas().filter(r=>S.favs.includes(r.id)):
+    getAllRecetas().filter(r=>r.tn===S.filtro);
+  const esCustom=id=>id.startsWith('u_');
+  document.getElementById('rec-grid').innerHTML=filtered.length?filtered.map(r=>`
+    <div class="rec-card" onclick="toggleRec('${r.id}')">
+      <div class="rec-top">
+        <div class="rec-ico">${r.ico}</div>
+        <div class="rec-info">
+          <div class="rec-nombre">${r.nombre}${esCustom(r.id)?'<span style="font-size:9px;margin-left:5px;background:#DCFCE7;color:#15803D;padding:1px 6px;border-radius:10px;font-family:DM Sans,sans-serif;font-weight:700">MÍA</span>':''}</div>
+          <span class="rec-tipo badge-${r.tipo}">${r.tn}</span>
+          <div class="rec-meta">⏱ ${r.t}</div>
+        </div>
+        <div class="fav-btn" onclick="event.stopPropagation();toggleFav('${r.id}')">${S.favs.includes(r.id)?'⭐':'☆'}</div>
+      </div>
+      <div class="rec-body${S.recOpen===r.id?' open':''}">
+        <div class="rec-prep">${r.prep}</div>
+        <div class="rec-bebe"><div class="rec-bebe-lbl">👶 Bebé 15 meses</div><div class="rec-bebe-txt">${r.bebe}</div></div>
+        <div class="rec-ings-ttl">Ingredientes (${S.porciones} adultos)</div>
+        ${r.ings.map(([n,c,b])=>`<div class="rec-ing-row"><span>${n}</span><span class="rec-ing-cant">${escalarCant(c,S.porciones)}</span></div>`).join('')}
+        <div class="rec-edit-bar">
+          <button class="rec-edit-btn" onclick="event.stopPropagation();abrirEditorExistente('${r.id}')">✏️ Editar receta</button>
+          <button class="rec-edit-btn" onclick="event.stopPropagation();abrirModalAsignar('${r.id}')">+ Asignar a día</button>
+        </div>
+      </div>
+    </div>`).join(''):'<div style="padding:24px;text-align:center;color:var(--su);font-size:13px">No hay recetas en esta categoría.</div>';
+}
+
 function setFiltro(f){S.filtro=f;S.recOpen=null;renderRecetario();}
 function toggleRec(id){S.recOpen=S.recOpen===id?null:id;renderRecetario();}
 
 // ═══════════════════════════════════════════════════════
-// MODAL GENÉRICO
+// EDITOR DE RECETAS
 // ═══════════════════════════════════════════════════════
+
+const ICOS=['🍗','🐟','🌿','🥩','🐠','🥗','🌾','🫘','🐔','🥑','🍝','🐄','🌰','🫑','🥟','🐡','🌮','🧆','🐙','🥬','🥣','🥚','🎃','🍳','🍜','🥦','🍲','🧆','🍵','🌽','🥕','🫙','🥗','🐓','🍚','🐟','🫔','🥘','🍛','🥙'];
+
+let _edId=null; // null = nueva, string = editar existente
+let _edIngCount=0;
+
+function getAllRecetas(){
+  const custom=loadLS('custom_recetas',[]);
+  return [...RECETAS,...custom];
+}
+function getR(id){return getAllRecetas().find(r=>r.id===id)||RECETAS[0];}
+
+function abrirEditorNueva(){
+  _edId=null;
+  document.getElementById('ed-ttl').textContent='Nueva receta';
+  document.getElementById('ed-delete-section').style.display='none';
+  // defaults
+  document.getElementById('ed-nombre').value='';
+  document.getElementById('ed-tiempo').value='30 min';
+  document.getElementById('ed-prep').value='';
+  document.getElementById('ed-bebe').value='';
+  document.getElementById('ed-tipo').value='C|Carne';
+  renderIcoRow('🍗');
+  renderIngRows([['','','']]);
+  document.getElementById('ed-overlay').classList.add('open');
+  document.getElementById('ed-overlay').scrollTop=0;
+}
+
+function abrirEditorExistente(id){
+  _edId=id;
+  const r=getR(id);
+  document.getElementById('ed-ttl').textContent='Editar receta';
+  document.getElementById('ed-nombre').value=r.nombre;
+  document.getElementById('ed-tiempo').value=r.t;
+  document.getElementById('ed-prep').value=r.prep;
+  document.getElementById('ed-bebe').value=r.bebe;
+  document.getElementById('ed-tipo').value=`${r.tipo}|${r.tn}`;
+  renderIcoRow(r.ico);
+  renderIngRows(r.ings);
+  // solo mostrar botón eliminar en recetas custom
+  document.getElementById('ed-delete-section').style.display=id.startsWith('u_')?'block':'none';
+  document.getElementById('ed-overlay').classList.add('open');
+  document.getElementById('ed-overlay').scrollTop=0;
+}
+
+function closeEditor(){
+  document.getElementById('ed-overlay').classList.remove('open');
+}
+
+function renderIcoRow(selIco){
+  document.getElementById('ed-ico-row').innerHTML=ICOS.map(ic=>
+    `<button class="ed-ico-btn${ic===selIco?' sel':''}" onclick="selIco('${ic}')">${ic}</button>`
+  ).join('');
+}
+
+function selIco(ico){renderIcoRow(ico);}
+
+function getSelIco(){
+  const btn=document.querySelector('.ed-ico-btn.sel');
+  return btn?btn.textContent:'🍽';
+}
+
+function renderIngRows(ings){
+  _edIngCount=ings.length;
+  document.getElementById('ed-ings-list').innerHTML=ings.map((ing,i)=>ingRowHtml(i,ing)).join('');
+}
+
+function ingRowHtml(i,[nom,cant,bebe]){
+  return `<div class="ing-ed-row" id="ing-row-${i}">
+    <div class="ing-ed-num">${i+1}</div>
+    <div class="ing-ed-fields">
+      <input class="ed-input" id="ing-nom-${i}" placeholder="Ingrediente" value="${nom||''}">
+      <div style="display:flex;gap:5px">
+        <input class="ed-input" id="ing-cant-${i}" placeholder="Cantidad (2 adultos)" value="${cant||''}" style="flex:1">
+        <input class="ed-input" id="ing-bebe-${i}" placeholder="Bebé" value="${bebe||''}" style="flex:1">
+      </div>
+    </div>
+    <div class="ing-ed-del" onclick="delIngRow(${i})">✕</div>
+  </div>`;
+}
+
+function addIngRow(){
+  const i=_edIngCount++;
+  const div=document.createElement('div');
+  div.innerHTML=ingRowHtml(i,['','','']);
+  document.getElementById('ed-ings-list').appendChild(div.firstElementChild);
+}
+
+function delIngRow(i){
+  const row=document.getElementById('ing-row-'+i);
+  if(row)row.remove();
+}
+
+function collectIngs(){
+  const ings=[];
+  document.querySelectorAll('[id^="ing-nom-"]').forEach(el=>{
+    const i=el.id.split('-')[2];
+    const nom=el.value.trim();
+    if(!nom)return;
+    const cant=document.getElementById('ing-cant-'+i)?.value.trim()||'';
+    const bebe=document.getElementById('ing-bebe-'+i)?.value.trim()||'';
+    ings.push([nom,cant,bebe]);
+  });
+  return ings;
+}
+
+function guardarEditor(){
+  const nombre=document.getElementById('ed-nombre').value.trim();
+  if(!nombre){showToast('⚠️ Escribí el nombre del plato');return;}
+  const tipoVal=document.getElementById('ed-tipo').value;
+  const [tipo,tn]=tipoVal.split('|');
+  const ings=collectIngs();
+  if(!ings.length){showToast('⚠️ Agregá al menos un ingrediente');return;}
+
+  const receta={
+    id: _edId && _edId.startsWith('u_') ? _edId : 'u_'+Date.now(),
+    ico: getSelIco(),
+    nombre,
+    tipo, tn,
+    t: document.getElementById('ed-tiempo').value.trim()||'30 min',
+    prep: document.getElementById('ed-prep').value.trim(),
+    bebe: document.getElementById('ed-bebe').value.trim(),
+    n:{prot:1,veg:1,leg:0,pesc:tipo==='P'?2:0,cereal:0},
+    ings,
+  };
+
+  const custom=loadLS('custom_recetas',[]);
+
+  if(_edId && _edId.startsWith('u_')){
+    // editar custom existente
+    const idx=custom.findIndex(r=>r.id===_edId);
+    if(idx>=0)custom[idx]=receta;else custom.push(receta);
+    saveLS('custom_recetas',custom);
+    showToast('✓ Receta actualizada');
+  } else if(_edId){
+    // editar receta base → guardar override en custom con mismo id
+    receta.id='u_override_'+_edId;
+    // reemplazar en plan si estaba asignada
+    DIAS.forEach(d=>['a','c'].forEach(t=>{if(S.plan[d][t]===_edId)S.plan[d][t]=receta.id;}));
+    savePlan();
+    const existIdx=custom.findIndex(r=>r.id===receta.id);
+    if(existIdx>=0)custom[existIdx]=receta;else custom.push(receta);
+    saveLS('custom_recetas',custom);
+    showToast('✓ Receta editada (copia guardada)');
+  } else {
+    // nueva
+    custom.push(receta);
+    saveLS('custom_recetas',custom);
+    showToast('✓ Receta creada: '+nombre);
+  }
+
+  closeEditor();
+  S.recOpen=receta.id;
+  renderRecetario();
+}
+
+function eliminarReceta(){
+  if(!_edId||!_edId.startsWith('u_'))return;
+  if(!confirm('¿Eliminar esta receta? Si está asignada en el plan se reemplazará por una predeterminada.'))return;
+  const custom=loadLS('custom_recetas',[]).filter(r=>r.id!==_edId);
+  saveLS('custom_recetas',custom);
+  // resetear asignaciones que usaban esta receta
+  DIAS.forEach(d=>['a','c'].forEach(t=>{
+    if(S.plan[d][t]===_edId)S.plan[d][t]=t==='a'?'r01':'c01';
+  }));
+  savePlan();
+  closeEditor();
+  renderRecetario();
+  showToast('Receta eliminada');
+}
+
+
 
 let _modalCb=null;
 function openModal(ttl,sub,bodyHtml,cb){
