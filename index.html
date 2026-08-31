@@ -166,6 +166,7 @@ html,body{height:100%;background:var(--cr);font-family:'DM Sans',sans-serif;colo
 .ing-name.done{text-decoration:line-through;color:#bbb;}
 .badge-menu{display:inline-block;font-size:8px;font-weight:700;padding:1px 5px;border-radius:8px;background:#DCFCE7;color:#15803D;margin-left:4px;vertical-align:middle;}
 .badge-col{display:inline-block;font-size:8px;font-weight:700;padding:1px 5px;border-radius:8px;background:#DBEAFE;color:#1D4ED8;margin-left:4px;vertical-align:middle;}
+.badge-stock{display:inline-block;font-size:8px;font-weight:700;padding:1px 5px;border-radius:8px;background:#FFEDD5;color:#C2410C;margin-left:4px;vertical-align:middle;}
 .ing-actions{display:flex;gap:4px;align-items:center;}
 .ing-cant-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:1px;}
 .ing-cant{font-size:11px;color:var(--su);font-weight:600;}
@@ -232,6 +233,50 @@ html,body{height:100%;background:var(--cr);font-family:'DM Sans',sans-serif;colo
 .hist-load-btn{display:block;width:calc(100% - 28px);margin:10px 14px 14px;padding:9px;border-radius:var(--rsm);border:1.5px solid var(--v3);background:var(--bl);color:var(--v3);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;text-align:center;}
 .hist-del-btn{font-size:14px;cursor:pointer;color:#ddd;padding:4px;}
 
+/* ── VISTA STOCK ── */
+.stk-hint{margin:8px 14px 0;font-size:11.5px;color:rgba(255,255,255,.85);line-height:1.6;background:var(--v2);border-radius:var(--rsm);padding:10px 12px;}
+.stk-hint b{color:#fff;}
+.stk-filters-wrap{position:relative;margin-top:8px;}
+.stk-filters-wrap::after{content:'';position:absolute;top:0;right:0;bottom:0;width:26px;background:linear-gradient(90deg,transparent,var(--cr));pointer-events:none;}
+.stk-filters{display:flex;gap:6px;padding:2px 20px 8px 14px;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;white-space:nowrap;}
+.stk-filters::-webkit-scrollbar{display:none;}
+.stk-chip{flex:0 0 auto;display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:6px 12px;border-radius:20px;border:1.5px solid var(--cr3);background:var(--bl);color:var(--su);cursor:pointer;white-space:nowrap;}
+.stk-chip .cnt{font-size:9px;font-weight:700;opacity:.6;}
+.stk-chip.active{border-color:transparent;color:#fff;}
+
+.stk-zones{display:flex;flex-direction:column;height:56vh;margin:2px 14px 0;border-radius:var(--radio);overflow:hidden;box-shadow:var(--sh);}
+.stk-zone{flex:1 1 0;display:flex;flex-direction:column;min-height:0;overflow:hidden;}
+.stk-zone.collapsed{flex-grow:0!important;flex-shrink:0!important;flex-basis:auto!important;}
+.stk-zone-hdr{flex-shrink:0;display:flex;align-items:center;gap:8px;padding:9px 13px;cursor:pointer;background:var(--bl);border-bottom:1px solid var(--cr2);}
+.stk-zone-ico{font-size:16px;}
+.stk-zone-nom{font-size:12.5px;font-weight:700;color:var(--tx);}
+.stk-zone-cnt{margin-left:auto;font-size:10.5px;color:var(--su);display:flex;align-items:center;gap:5px;}
+.stk-zone-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.stk-zone-body::-webkit-scrollbar{display:none;}
+.stk-zone.collapsed .stk-zone-body{display:none;}
+.stk-zone-stock .stk-zone-body{background:linear-gradient(180deg,#F3FBF4 0%,var(--cr) 100%);}
+.stk-zone-nostock .stk-zone-body{background:repeating-linear-gradient(135deg,#F1ECE1 0 2px,#EDE7DA 2px 34px);}
+
+.stk-handle{flex-shrink:0;height:20px;background:var(--v);display:flex;align-items:center;justify-content:center;cursor:ns-resize;touch-action:none;box-shadow:0 2px 6px rgba(0,0,0,.15) inset;}
+.stk-handle .grip{width:24px;height:3px;border-radius:2px;background:rgba(144,196,154,.5);}
+.stk-handle.disabled{cursor:default;opacity:.4;pointer-events:none;}
+
+.stk-grid{padding:9px 10px 14px;}
+.stk-group-lbl{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--su);padding:7px 4px 4px;}
+.stk-cells{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:6px;}
+.stk-item{position:relative;background:var(--bl);border-radius:11px;padding:9px 3px 5px;text-align:center;box-shadow:var(--sh);cursor:grab;touch-action:none;border:1.5px solid transparent;min-height:68px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.stk-item:active{cursor:grabbing;}
+.stk-item .stk-ico{font-size:28px;line-height:1;margin-bottom:5px;}
+.stk-item .stk-nom{font-size:7.5px;font-weight:700;color:var(--su);line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;padding:0 2px;}
+.stk-item.dragging-source{opacity:.28;}
+.stk-item .stk-dot{position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:50%;}
+.stk-empty{padding:30px 16px;text-align:center;color:#B7AD98;font-size:11.5px;line-height:1.6;}
+.stk-scatter-wrap{position:relative;padding:8px 6px 16px;}
+.stk-scatter-item{position:absolute;width:70px;}
+.stk-scatter-item .stk-item{box-shadow:0 4px 10px rgba(60,45,10,.16);border-color:rgba(255,255,255,.6);}
+.stk-ghost{position:fixed;z-index:999;pointer-events:none;width:70px;transform:scale(1.08) rotate(-2deg);opacity:.96;filter:drop-shadow(0 10px 18px rgba(0,0,0,.35));}
+.stk-zone.drop-ok{outline:2px dashed var(--menta);outline-offset:-4px;}
+
 /* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:100;align-items:flex-end;justify-content:center;}
 .modal-overlay.open{display:flex;}
@@ -250,6 +295,8 @@ html,body{height:100%;background:var(--cr);font-family:'DM Sans',sans-serif;colo
 .fab.vis{display:flex;}
 .fab-item{background:var(--v3);}
 .fab-col{background:var(--v2);}
+.fab-stock{background:var(--v2);}
+.fab-badge{background:var(--menta);color:var(--v);font-size:10px;font-weight:800;border-radius:10px;padding:1px 7px;}
 
 /* TOAST */
 #toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--v2);color:#fff;padding:8px 16px;border-radius:20px;font-size:12px;font-weight:600;z-index:200;transition:opacity .3s;font-family:'DM Sans',sans-serif;white-space:nowrap;opacity:0;pointer-events:none;}
@@ -314,6 +361,32 @@ html,body{height:100%;background:var(--cr);font-family:'DM Sans',sans-serif;colo
       <div style="height:80px"></div>
     </div>
 
+    <div class="page" id="pg-stock">
+      <div class="sec-hdr"><h2>🧺 Stock</h2><p>Marcá qué tenés y qué falta. Lo que falta se suma solo al Mercado.</p></div>
+      <div class="stk-hint">Arrastrá un ítem entre zonas o hacé <b>doble clic</b> para moverlo. Tocá un título para colapsarlo, o arrastrá la franja del medio para ajustar el tamaño de cada ventana.</div>
+      <div class="stk-filters-wrap"><div class="stk-filters" id="stk-filters"></div></div>
+      <div class="stk-zones" id="stk-zones">
+        <div class="stk-zone stk-zone-stock" id="stk-zone-stock">
+          <div class="stk-zone-hdr" onclick="stockToggleCollapse('stock')">
+            <span class="stk-zone-ico">✅</span>
+            <span class="stk-zone-nom">En stock</span>
+            <span class="stk-zone-cnt"><span id="stk-stock-count"></span><span id="stk-stock-chev">▲</span></span>
+          </div>
+          <div class="stk-zone-body"><div class="stk-grid" id="stk-grid"></div></div>
+        </div>
+        <div class="stk-handle" id="stk-handle"><span class="grip"></span></div>
+        <div class="stk-zone stk-zone-nostock" id="stk-zone-nostock">
+          <div class="stk-zone-hdr" onclick="stockToggleCollapse('nostock')">
+            <span class="stk-zone-ico">🗑️</span>
+            <span class="stk-zone-nom">Sin stock</span>
+            <span class="stk-zone-cnt"><span id="stk-nostock-count"></span><span id="stk-nostock-chev">▲</span></span>
+          </div>
+          <div class="stk-zone-body"><div class="stk-scatter-wrap" id="stk-scatter-wrap"></div></div>
+        </div>
+      </div>
+      <div style="height:80px"></div>
+    </div>
+
     <div class="page" id="pg-col">
       <div class="sec-hdr"><h2>🥐 Colaciones</h2><p>Marcá las que querés incluir esta semana en la lista de compras.</p></div>
       <div class="col-intro"><p>✓ <strong>Las marcadas se suman automáticamente</strong> al Mercado con badge azul. Se resetean cada vez que guardás una nueva semana.</p></div>
@@ -333,12 +406,14 @@ html,body{height:100%;background:var(--cr);font-family:'DM Sans',sans-serif;colo
     <button class="bot-tab active" onclick="setPage('semana')"><div class="bt-ico">🗓</div><div class="bt-lbl">SEMANA</div></button>
     <button class="bot-tab" onclick="setPage('plan')"><div class="bt-ico">✏️</div><div class="bt-lbl">PLANIFICAR</div></button>
     <button class="bot-tab" onclick="setPage('compras')"><div class="bt-ico">🛒</div><div class="bt-lbl">MERCADO</div></button>
+    <button class="bot-tab" onclick="setPage('stock')"><div class="bt-ico">🧺</div><div class="bt-lbl">STOCK</div></button>
     <button class="bot-tab" onclick="setPage('col')"><div class="bt-ico">🥐</div><div class="bt-lbl">COLACIONES</div></button>
     <button class="bot-tab" onclick="setPage('hist')"><div class="bt-ico">📅</div><div class="bt-lbl">HISTORIAL</div></button>
   </div>
 </div>
 
 <button class="fab fab-item" id="fab-item" onclick="abrirNuevoItem()">＋ Agregar ítem</button>
+<button class="fab fab-stock" id="fab-stock" onclick="setPage('compras')">🛒 Ver en Mercado <span class="fab-badge" id="fab-stock-badge">0</span></button>
 
 <div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
@@ -547,11 +622,11 @@ const CATS={
   "🥩 Carnes y Pescados":["pollo","peceto","lomo","merluza","salmón","carne","muslos","pescad","atún","brótola","salchicha","hamburguesa","fiambre","salame"],
   "🥚 Lácteos y Huevos":["huevo","leche","ricota","queso","yogur","crema","manteca","mozzarella"],
   "🥦 Verduras":["zanahoria","calabaza","zapallo","brócoli","espinaca","zucchini","morrón","papa","batata","tomate","lechuga","apio","chaucha","puerro","verdeo","pimiento","cebolla","ajo","arvejas","tomatines","palta","choclo","champiñon","banana","manzana","frutos"],
-  "🌾 Granos y Pastas":["arroz","quinoa","lentejas","garbanzos","porotos","pasta","fideos","harina","avena","pan","tortilla","galletitas","cereales"],
-  "🍋 Condimentos y Aceites":["aceite","limón","oliva","comino","romero","perejil","albahaca","caldo","leche de coco","café","té","mate","yerba","dulce"],
-  "🧹 Limpieza":["papel higiénico","papel de cocina","jabón","detergente","esponja","suavizante","desodorante","shampoo","lisoform","pañales","bolsas"],
+  "🌾 Granos y Pastas":["arroz","quinoa","lentejas","garbanzos","porotos","pasta","fideos","harina","avena","pan","tortilla","galletitas","cereales","maíz"],
+  "🍋 Condimentos y Aceites":["aceite","limón","oliva","comino","romero","perejil","albahaca","caldo","leche de coco","café","té","mate","yerba","dulce","vinagre","sal","azúcar","cacao","ketchup","mostaza","mayonesa","miel","especias"],
+  "🧹 Limpieza":["papel higiénico","papel de cocina","jabón","detergente","esponja","suavizante","desodorante","shampoo","lisoform","pañales","bolsas","lavandina","limpiador","guantes","rollo de cocina","acondicionador","pasta dental","cepillo","enjuague","algodón","hisopos","toallas femeninas","pañuelos"],
   "🥤 Bebidas":["agua","gaseosa","cerveza","jugo","vino","soda"],
-  "🧂 Varios":["papas fritas","frutas secas"],
+  "🧂 Varios":["papas fritas","frutas secas","frutos secos","pasas de uva","chocolate","snacks","puré de tomate","mermelada","velas","pilas","fósforos","encendedor","ambientador","servilletas"],
 };
 
 const PLAN_DEF={
@@ -563,6 +638,85 @@ const PLAN_DEF={
   Sábado:{a:{p:["p03"],g:["g09","g10"]},c:{p:["p17"],g:[]}},
   Domingo:{a:{p:["p21"],g:[]},c:{p:["p10"],g:["g12"]}},
 };
+
+const STOCK_SECTIONS=[
+  {id:'cocina',nom:'Cocina',ico:'🍳',acc:'#EA580C',bg:'#FFF7ED'},
+  {id:'alacena',nom:'Alacena / Despensa',ico:'🥫',acc:'#D97706',bg:'#FFFBEB'},
+  {id:'bano',nom:'Baño',ico:'🛁',acc:'#9333EA',bg:'#FDF4FF'},
+  {id:'lavadero',nom:'Lavadero / Limpieza',ico:'🧼',acc:'#0891B2',bg:'#ECFEFF'},
+  {id:'living',nom:'Living / Hogar',ico:'🛋️',acc:'#16A34A',bg:'#F0FDF4'},
+];
+function stockSec(id){return STOCK_SECTIONS.find(s=>s.id===id)||STOCK_SECTIONS[0];}
+
+const STOCK_DEFAULT=[
+  {id:'c01',nom:'Aceite',ico:'🫒',cat:'cocina',stock:true},
+  {id:'c02',nom:'Vinagre',ico:'🍶',cat:'cocina',stock:true},
+  {id:'c03',nom:'Sal',ico:'🧂',cat:'cocina',stock:true},
+  {id:'c04',nom:'Azúcar',ico:'🍬',cat:'cocina',stock:false},
+  {id:'c05',nom:'Harina',ico:'🌾',cat:'cocina',stock:false},
+  {id:'c06',nom:'Arroz',ico:'🍚',cat:'cocina',stock:true},
+  {id:'c07',nom:'Fideos',ico:'🍝',cat:'cocina',stock:true},
+  {id:'c08',nom:'Yerba mate',ico:'🧉',cat:'cocina',stock:false},
+  {id:'c09',nom:'Café',ico:'☕',cat:'cocina',stock:true},
+  {id:'c10',nom:'Té',ico:'🍵',cat:'cocina',stock:true},
+  {id:'c11',nom:'Cacao',ico:'🍫',cat:'cocina',stock:false},
+  {id:'c12',nom:'Leche',ico:'🥛',cat:'cocina',stock:true},
+  {id:'c13',nom:'Manteca',ico:'🧈',cat:'cocina',stock:true},
+  {id:'c14',nom:'Queso rallado',ico:'🧀',cat:'cocina',stock:false},
+  {id:'c15',nom:'Puré de tomate',ico:'🥫',cat:'cocina',stock:false},
+  {id:'c16',nom:'Atún',ico:'🐟',cat:'cocina',stock:true},
+  {id:'c17',nom:'Lentejas',ico:'🫘',cat:'cocina',stock:false},
+  {id:'c18',nom:'Garbanzos',ico:'🧆',cat:'cocina',stock:false},
+  {id:'c19',nom:'Maíz',ico:'🌽',cat:'cocina',stock:true},
+  {id:'c20',nom:'Galletitas',ico:'🍪',cat:'cocina',stock:true},
+  {id:'c21',nom:'Mermelada',ico:'🍓',cat:'cocina',stock:false},
+  {id:'c22',nom:'Miel',ico:'🍯',cat:'cocina',stock:true},
+  {id:'c23',nom:'Ketchup',ico:'🍅',cat:'cocina',stock:false},
+  {id:'c24',nom:'Mostaza',ico:'🌭',cat:'cocina',stock:false},
+  {id:'c25',nom:'Mayonesa',ico:'🥪',cat:'cocina',stock:true},
+
+  {id:'a01',nom:'Especias',ico:'🌿',cat:'alacena',stock:true},
+  {id:'a02',nom:'Cubitos de caldo',ico:'🍲',cat:'alacena',stock:false},
+  {id:'a03',nom:'Avena',ico:'🥣',cat:'alacena',stock:true},
+  {id:'a04',nom:'Cereales',ico:'🥣',cat:'alacena',stock:false},
+  {id:'a05',nom:'Frutos secos',ico:'🥜',cat:'alacena',stock:true},
+  {id:'a06',nom:'Pasas de uva',ico:'🍇',cat:'alacena',stock:false},
+  {id:'a07',nom:'Conservas',ico:'🥫',cat:'alacena',stock:true},
+  {id:'a08',nom:'Chocolate',ico:'🍫',cat:'alacena',stock:false},
+  {id:'a09',nom:'Snacks',ico:'🍿',cat:'alacena',stock:true},
+
+  {id:'b01',nom:'Papel higiénico',ico:'🧻',cat:'bano',stock:true},
+  {id:'b02',nom:'Shampoo',ico:'🧴',cat:'bano',stock:true},
+  {id:'b03',nom:'Acondicionador',ico:'🧴',cat:'bano',stock:false},
+  {id:'b04',nom:'Jabón',ico:'🧼',cat:'bano',stock:true},
+  {id:'b05',nom:'Jabón líquido',ico:'🫧',cat:'bano',stock:false},
+  {id:'b06',nom:'Pasta dental',ico:'🦷',cat:'bano',stock:true},
+  {id:'b07',nom:'Cepillo de dientes',ico:'🪥',cat:'bano',stock:false},
+  {id:'b08',nom:'Enjuague bucal',ico:'💧',cat:'bano',stock:false},
+  {id:'b09',nom:'Desodorante',ico:'💨',cat:'bano',stock:true},
+  {id:'b10',nom:'Algodón',ico:'☁️',cat:'bano',stock:false},
+  {id:'b11',nom:'Hisopos',ico:'🥢',cat:'bano',stock:false},
+  {id:'b12',nom:'Toallas femeninas',ico:'🩸',cat:'bano',stock:true},
+  {id:'b13',nom:'Pañuelos descartables',ico:'🤧',cat:'bano',stock:false},
+
+  {id:'l01',nom:'Detergente',ico:'🧴',cat:'lavadero',stock:true},
+  {id:'l02',nom:'Esponja',ico:'🧽',cat:'lavadero',stock:false},
+  {id:'l03',nom:'Lavandina',ico:'🧪',cat:'lavadero',stock:false},
+  {id:'l04',nom:'Limpiador multiuso',ico:'✨',cat:'lavadero',stock:true},
+  {id:'l05',nom:'Suavizante',ico:'🧴',cat:'lavadero',stock:false},
+  {id:'l06',nom:'Jabón para ropa',ico:'🧼',cat:'lavadero',stock:true},
+  {id:'l07',nom:'Bolsas de residuos',ico:'🗑️',cat:'lavadero',stock:false},
+  {id:'l08',nom:'Rollo de cocina',ico:'🧻',cat:'lavadero',stock:true},
+  {id:'l09',nom:'Guantes de limpieza',ico:'🧤',cat:'lavadero',stock:false},
+
+  {id:'h01',nom:'Velas',ico:'🕯️',cat:'living',stock:true},
+  {id:'h02',nom:'Pilas',ico:'🔋',cat:'living',stock:false},
+  {id:'h03',nom:'Fósforos',ico:'🔥',cat:'living',stock:true},
+  {id:'h04',nom:'Encendedor',ico:'⚡',cat:'living',stock:false},
+  {id:'h05',nom:'Ambientador',ico:'🌸',cat:'living',stock:false},
+  {id:'h06',nom:'Servilletas',ico:'🧻',cat:'living',stock:true},
+  {id:'h07',nom:'Pañuelos de papel',ico:'🤧',cat:'living',stock:false},
+];
 
 
 // ═══════════════════════════════════════════════════════
@@ -586,6 +740,11 @@ let S={
   checks:loadLS('checks_v4',{}),
   gastos:loadLS('gastos',[]),
   catOpen:{},comprasFiltro:'Todos',planOpen:{},slotOpen:{},editFijo:null,histOpen:{},
+  stock:loadLS('stock_items_v1',JSON.parse(JSON.stringify(STOCK_DEFAULT))),
+  stockScatter:loadLS('stock_scatter_v1',{}),
+  stockFiltro:'todos',
+  stockCollapsed:loadLS('stock_collapsed_v1',{stock:false,nostock:false}),
+  stockSplit:loadLS('stock_split_v1',0.5),
 };
 
 function getTotalPorciones(){
@@ -619,7 +778,7 @@ function savePlan(){saveLS('plan_v4',S.plan);}
 // NAVEGACIÓN
 // ═══════════════════════════════════════════════════════
 
-const PAGES=['semana','plan','compras','col','hist'];
+const PAGES=['semana','plan','compras','stock','col','hist'];
 
 function setPage(p){
   S.pag=p;
@@ -628,8 +787,10 @@ function setPage(p){
   document.querySelectorAll('.bot-tab').forEach((t,i)=>t.classList.toggle('active',PAGES[i]===p));
   document.getElementById('scroll').scrollTop=0;
   document.getElementById('fab-item').classList.toggle('vis',p==='compras');
+  document.getElementById('fab-stock').classList.toggle('vis',p==='stock');
   if(p==='plan')renderPlan();
   if(p==='compras')renderCompras();
+  if(p==='stock')renderStockAll();
   if(p==='col')renderColaciones();
   if(p==='hist')renderHist();
 }
@@ -1016,6 +1177,10 @@ function buildMercado(diaFil){
     S.fijos.forEach(f=>{
       raw['f_'+f.id]={nom:f.nom,cant:[f.cant],bebe:[],k:'f_'+f.id,tipo:'fijo',fijo:f};
     });
+    // Stock faltante
+    S.stock.filter(i=>!i.stock).forEach(i=>{
+      raw['stock_'+i.id]={nom:i.nom,cant:['Reponer'],bebe:[],k:'stock_'+i.id,tipo:'stock'};
+    });
   }
 
   const cats={};
@@ -1049,7 +1214,8 @@ function renderCompras(){
     const mc=items.filter(i=>i.tipo==='menu').length;
     const cc=items.filter(i=>i.tipo==='col').length;
     const fc=items.filter(i=>i.tipo==='fijo').length;
-    const parts=[mc?mc+' menú':'',cc?cc+' col':'',fc?fc+' fijo':''].filter(Boolean).join(' · ');
+    const sc=items.filter(i=>i.tipo==='stock').length;
+    const parts=[mc?mc+' menú':'',cc?cc+' col':'',fc?fc+' fijo':'',sc?sc+' stock':''].filter(Boolean).join(' · ');
     html+='<div class="cat-bloque">'+
       '<div class="cat-hdr" onclick="toggleCat(\''+cat+'\')">'+
         '<div class="cat-ico">'+cat.split(' ')[0]+'</div>'+
@@ -1068,6 +1234,7 @@ function renderCompras(){
           rowHtml+='<div class="ing-name'+(ck?' done':'')+'">'+(it.nom||'');
           if(it.tipo==='menu')rowHtml+='<span class="badge-menu">MENÚ</span>';
           if(it.tipo==='col')rowHtml+='<span class="badge-col">COL</span>';
+          if(it.tipo==='stock')rowHtml+='<span class="badge-stock">STOCK</span>';
           rowHtml+='</div>';
           rowHtml+='<div class="ing-actions"><div class="ing-cant-wrap"><span class="ing-cant">'+cu+'</span>';
           if(bu.length)rowHtml+='<span class="ing-bebe">👶 '+bu[0]+'</span>';
@@ -1149,12 +1316,234 @@ function shareWhatsApp(){
     txt+='*'+cat+'*\n';
     items.forEach(it=>{
       const cu=[...new Set(it.cant)].join(', ');
-      txt+=(it.tipo==='menu'?'🟢':it.tipo==='col'?'🔵':'⚪')+' '+it.nom+': '+cu+'\n';
+      txt+=(it.tipo==='menu'?'🟢':it.tipo==='col'?'🔵':it.tipo==='stock'?'🟠':'⚪')+' '+it.nom+': '+cu+'\n';
     });
     txt+='\n';
   });
-  txt+='_🟢 Menú  🔵 Colación  ⚪ Fijo_';
+  txt+='_🟢 Menú  🔵 Colación  🟠 Stock  ⚪ Fijo_';
   window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+}
+
+// ═══════════════════════════════════════════════════════
+// VISTA STOCK
+// ═══════════════════════════════════════════════════════
+
+function saveStock(){saveLS('stock_items_v1',S.stock);}
+function saveStockScatter(){saveLS('stock_scatter_v1',S.stockScatter);}
+
+function stockEnsureScatter(id){if(!S.stockScatter[id])stockNewScatter(id);}
+function stockNewScatter(id){
+  S.stockScatter[id]={r1:Math.random(),r2:Math.random(),rot:Math.random()};
+  saveStockScatter();
+}
+
+function renderStockAll(){
+  renderStockFilters();renderStockGrid();renderStockScatter();stockApplyLayout();
+  const n=S.stock.filter(i=>!i.stock).length;
+  document.getElementById('fab-stock-badge').textContent=n;
+}
+
+function renderStockFilters(){
+  const counts={};
+  STOCK_SECTIONS.forEach(s=>counts[s.id]=S.stock.filter(i=>i.cat===s.id&&!i.stock).length);
+  const totalNo=S.stock.filter(i=>!i.stock).length;
+  let html='<button class="stk-chip'+(S.stockFiltro==='todos'?' active':'')+'" style="'+(S.stockFiltro==='todos'?'background:var(--v2)':'')+'" onclick="stockSetFiltro(\'todos\')">Todos <span class="cnt">'+totalNo+'</span></button>';
+  STOCK_SECTIONS.forEach(s=>{
+    const act=S.stockFiltro===s.id;
+    html+='<button class="stk-chip'+(act?' active':'')+'" style="'+(act?'background:'+s.acc:'')+'" onclick="stockSetFiltro(\''+s.id+'\')">'+s.ico+' '+s.nom+' <span class="cnt">'+counts[s.id]+'</span></button>';
+  });
+  document.getElementById('stk-filters').innerHTML=html;
+}
+function stockSetFiltro(id){S.stockFiltro=id;renderStockFilters();renderStockGrid();renderStockScatter();}
+
+function stockVisible(){
+  return S.stockFiltro==='todos'?S.stock:S.stock.filter(i=>i.cat===S.stockFiltro);
+}
+
+function stockItemHtml(it){
+  const s=stockSec(it.cat);
+  return '<div class="stk-item" data-id="'+it.id+'" style="border-color:'+s.bg+'">'+
+    '<span class="stk-dot" style="background:'+s.acc+'"></span>'+
+    '<span class="stk-ico">'+it.ico+'</span>'+
+    '<span class="stk-nom">'+it.nom+'</span>'+
+  '</div>';
+}
+
+function renderStockGrid(){
+  const list=stockVisible().filter(i=>i.stock);
+  document.getElementById('stk-stock-count').textContent=list.length+' ítem'+(list.length===1?'':'s');
+  const grid=document.getElementById('stk-grid');
+  if(!list.length){grid.innerHTML='<div class="stk-empty">Nada acá todavía.<br>Arrastrá ítems desde abajo cuando repongas.</div>';return;}
+  if(S.stockFiltro==='todos'){
+    let html='';
+    STOCK_SECTIONS.forEach(s=>{
+      const its=list.filter(i=>i.cat===s.id);
+      if(!its.length)return;
+      html+='<div><div class="stk-group-lbl">'+s.ico+' '+s.nom+'</div><div class="stk-cells">'+
+        its.map(stockItemHtml).join('')+'</div></div>';
+    });
+    grid.innerHTML=html;
+  }else{
+    grid.innerHTML='<div class="stk-cells">'+list.map(stockItemHtml).join('')+'</div>';
+  }
+  stockAttachHandlers(grid);
+}
+
+function renderStockScatter(){
+  const list=stockVisible().filter(i=>!i.stock);
+  document.getElementById('stk-nostock-count').textContent=list.length+' ítem'+(list.length===1?'':'s');
+  const wrap=document.getElementById('stk-scatter-wrap');
+  if(!list.length){wrap.innerHTML='<div class="stk-empty">👏 Sin faltantes por acá.</div>';wrap.style.height='';return;}
+
+  const cols=Math.max(3,Math.floor((wrap.clientWidth||300)/84));
+  const cellW=(wrap.clientWidth||300)/cols;
+  const cellH=96;
+  const rows=Math.ceil(list.length/cols);
+  wrap.style.height=Math.max(rows*cellH+26,130)+'px';
+
+  let html='';
+  list.forEach((it,idx)=>{
+    stockEnsureScatter(it.id);
+    const seed=S.stockScatter[it.id];
+    const col=idx%cols,row=Math.floor(idx/cols);
+    const jx=(seed.r1-0.5)*cellW*0.55;
+    const jy=(seed.r2-0.5)*cellH*0.45;
+    const rot=(seed.rot-0.5)*34;
+    const x=col*cellW+cellW/2-35+jx;
+    const y=row*cellH+16+jy;
+    html+='<div class="stk-scatter-item" style="left:'+x+'px;top:'+y+'px;transform:rotate('+rot.toFixed(1)+'deg)">'+
+      stockItemHtml(it)+'</div>';
+  });
+  wrap.innerHTML=html;
+  stockAttachHandlers(wrap);
+}
+
+function stockToggleItem(id){
+  const it=S.stock.find(i=>i.id===id);
+  if(!it)return;
+  it.stock=!it.stock;
+  if(!it.stock)stockNewScatter(id);
+  saveStock();
+  renderStockFilters();renderStockGrid();renderStockScatter();
+  const n=S.stock.filter(i=>!i.stock).length;
+  document.getElementById('fab-stock-badge').textContent=n;
+  showToast(it.stock?'✓ '+it.nom+' → en stock':'○ '+it.nom+' → sin stock');
+}
+
+// drag (pointer events, unifica mouse + touch)
+function stockAttachHandlers(container){
+  container.querySelectorAll('.stk-item').forEach(el=>{
+    el.addEventListener('pointerdown',stockOnPointerDown);
+    el.addEventListener('dblclick',e=>{e.stopPropagation();stockToggleItem(el.dataset.id);});
+  });
+}
+
+let stockDrag=null;
+function stockOnPointerDown(e){
+  const el=e.currentTarget;
+  const rect=el.getBoundingClientRect();
+  stockDrag={id:el.dataset.id,el,startX:e.clientX,startY:e.clientY,rect,dragging:false,ghost:null};
+  el.setPointerCapture(e.pointerId);
+  el.addEventListener('pointermove',stockOnPointerMove);
+  el.addEventListener('pointerup',stockOnPointerUp);
+  el.addEventListener('pointercancel',stockOnPointerUp);
+}
+function stockOnPointerMove(e){
+  if(!stockDrag)return;
+  const dx=e.clientX-stockDrag.startX,dy=e.clientY-stockDrag.startY;
+  if(!stockDrag.dragging&&Math.hypot(dx,dy)>7){
+    stockDrag.dragging=true;
+    const g=stockDrag.el.cloneNode(true);
+    g.classList.add('stk-ghost');
+    g.style.left=stockDrag.rect.left+'px';
+    g.style.top=stockDrag.rect.top+'px';
+    document.body.appendChild(g);
+    stockDrag.ghost=g;
+    stockDrag.el.classList.add('dragging-source');
+  }
+  if(stockDrag.dragging){
+    stockDrag.ghost.style.left=(stockDrag.rect.left+dx)+'px';
+    stockDrag.ghost.style.top=(stockDrag.rect.top+dy)+'px';
+    const midY=document.getElementById('stk-zone-stock').getBoundingClientRect().bottom;
+    document.getElementById('stk-zone-stock').classList.toggle('drop-ok',e.clientY<midY);
+    document.getElementById('stk-zone-nostock').classList.toggle('drop-ok',e.clientY>=midY);
+  }
+}
+function stockOnPointerUp(e){
+  if(!stockDrag)return;
+  const el=stockDrag.el;
+  el.removeEventListener('pointermove',stockOnPointerMove);
+  el.removeEventListener('pointerup',stockOnPointerUp);
+  el.removeEventListener('pointercancel',stockOnPointerUp);
+  document.getElementById('stk-zone-stock').classList.remove('drop-ok');
+  document.getElementById('stk-zone-nostock').classList.remove('drop-ok');
+
+  if(stockDrag.dragging){
+    stockDrag.ghost.remove();
+    el.classList.remove('dragging-source');
+    const midY=document.getElementById('stk-zone-stock').getBoundingClientRect().bottom;
+    const it=S.stock.find(i=>i.id===stockDrag.id);
+    const wantsStock=e.clientY<midY;
+    if(it&&it.stock!==wantsStock){
+      it.stock=wantsStock;
+      if(!it.stock)stockNewScatter(it.id);
+      saveStock();
+      renderStockFilters();renderStockGrid();renderStockScatter();
+      const n=S.stock.filter(i=>!i.stock).length;
+      document.getElementById('fab-stock-badge').textContent=n;
+      showToast(wantsStock?'✓ '+it.nom+' → en stock':'○ '+it.nom+' → sin stock');
+    }
+  }
+  stockDrag=null;
+}
+
+// colapsar / redimensionar
+function stockApplyLayout(){
+  const stockZone=document.getElementById('stk-zone-stock');
+  const noZone=document.getElementById('stk-zone-nostock');
+  const handle=document.getElementById('stk-handle');
+  stockZone.classList.toggle('collapsed',S.stockCollapsed.stock);
+  noZone.classList.toggle('collapsed',S.stockCollapsed.nostock);
+  document.getElementById('stk-stock-chev').textContent=S.stockCollapsed.stock?'▼':'▲';
+  document.getElementById('stk-nostock-chev').textContent=S.stockCollapsed.nostock?'▼':'▲';
+
+  const bothOpen=!S.stockCollapsed.stock&&!S.stockCollapsed.nostock;
+  if(bothOpen){
+    stockZone.style.flexGrow=S.stockSplit;
+    noZone.style.flexGrow=1-S.stockSplit;
+  }else{
+    stockZone.style.flexGrow=S.stockCollapsed.stock?0:1;
+    noZone.style.flexGrow=S.stockCollapsed.nostock?0:1;
+  }
+  handle.classList.toggle('disabled',!bothOpen);
+  renderStockScatter();
+}
+function stockToggleCollapse(which){
+  S.stockCollapsed[which]=!S.stockCollapsed[which];
+  saveLS('stock_collapsed_v1',S.stockCollapsed);
+  stockApplyLayout();
+}
+
+let stockSplitDrag=null;
+function stockInitHandleDrag(){
+  const handle=document.getElementById('stk-handle');
+  handle.addEventListener('pointerdown',e=>{
+    if(handle.classList.contains('disabled'))return;
+    stockSplitDrag={startY:e.clientY,startRatio:S.stockSplit,zonesH:document.getElementById('stk-zones').clientHeight};
+    handle.setPointerCapture(e.pointerId);
+  });
+  handle.addEventListener('pointermove',e=>{
+    if(!stockSplitDrag)return;
+    const dy=e.clientY-stockSplitDrag.startY;
+    let r=stockSplitDrag.startRatio+dy/stockSplitDrag.zonesH;
+    r=Math.min(0.82,Math.max(0.18,r));
+    S.stockSplit=r;
+    stockApplyLayout();
+  });
+  const endDrag=()=>{if(stockSplitDrag){saveLS('stock_split_v1',S.stockSplit);stockSplitDrag=null;}};
+  handle.addEventListener('pointerup',endDrag);
+  handle.addEventListener('pointercancel',endDrag);
+  handle.addEventListener('dblclick',()=>{S.stockSplit=0.5;saveLS('stock_split_v1',S.stockSplit);stockApplyLayout();});
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1311,6 +1700,8 @@ document.getElementById('install-btn').addEventListener('click',async()=>{if(def
 // ═══════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════
+stockInitHandleDrag();
+window.addEventListener('resize',()=>{if(S.pag==='stock')stockApplyLayout();});
 renderSemana();
 </script>
 </body>
